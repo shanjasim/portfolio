@@ -1215,6 +1215,8 @@ main {
 .project-item.active {
   display: block;
   animation: scaleUp 0.25s ease forwards;
+  content-visibility: auto;
+  contain-intrinsic-size: 560px;
 }
 
 @keyframes scaleUp {
