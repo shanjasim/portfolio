@@ -1210,13 +1210,16 @@ main {
   color: var(--orange-yellow-crayola);
 }
 
-.project-item { display: none; }
+.project-item { display: block; }
+
+.project-item:not(.active) {
+  display: none;
+}
 
 .project-item.active {
-  display: block;
   animation: scaleUp 0.25s ease forwards;
-  content-visibility: auto;
-  contain-intrinsic-size: 560px;
+  opacity: 1;
+  visibility: visible;
 }
 
 @keyframes scaleUp {
