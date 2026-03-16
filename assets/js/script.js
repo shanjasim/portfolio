@@ -85,6 +85,9 @@ for (let i = 0; i < selectItems.length; i++) {
 // filter variables
 const filterItems = document.querySelectorAll("[data-filter-item]");
 const youtubeNote = document.querySelector("[data-youtube-note]");
+const portfolioVideos = document.querySelectorAll(".project-item video");
+const scrollButtons = document.querySelectorAll("[data-scroll-target]");
+const revealItems = document.querySelectorAll(".reveal-item");
 
 const filterFunc = function (selectedValue) {
 
@@ -98,6 +101,15 @@ const filterFunc = function (selectedValue) {
       filterItems[i].classList.remove("active");
     }
 
+  }
+
+  for (let i = 0; i < portfolioVideos.length; i++) {
+    const videoCard = portfolioVideos[i].closest(".project-item");
+
+    if (videoCard && !videoCard.classList.contains("active")) {
+      portfolioVideos[i].pause();
+      videoCard.classList.remove("is-playing");
+    }
   }
 
   if (youtubeNote) {
@@ -176,6 +188,62 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
     window.scrollTo(0, 0);
   });
+}
+
+for (let i = 0; i < portfolioVideos.length; i++) {
+  const currentVideo = portfolioVideos[i];
+  const currentCard = currentVideo.closest(".project-item");
+
+  currentVideo.addEventListener("play", function () {
+    for (let j = 0; j < portfolioVideos.length; j++) {
+      const otherVideo = portfolioVideos[j];
+      const otherCard = otherVideo.closest(".project-item");
+
+      if (otherVideo !== currentVideo) {
+        otherVideo.pause();
+        if (otherCard) otherCard.classList.remove("is-playing");
+      }
+    }
+
+    if (currentCard) currentCard.classList.add("is-playing");
+  });
+
+  currentVideo.addEventListener("pause", function () {
+    if (currentCard) currentCard.classList.remove("is-playing");
+  });
+
+  currentVideo.addEventListener("ended", function () {
+    if (currentCard) currentCard.classList.remove("is-playing");
+  });
+}
+
+for (let i = 0; i < scrollButtons.length; i++) {
+  scrollButtons[i].addEventListener("click", function () {
+    const targetSelector = this.dataset.scrollTarget;
+    const target = targetSelector ? document.querySelector(targetSelector) : null;
+
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+}
+
+if ("IntersectionObserver" in window) {
+  const revealObserver = new IntersectionObserver(function (entries) {
+    for (let i = 0; i < entries.length; i++) {
+      if (entries[i].isIntersecting) {
+        entries[i].target.classList.add("reveal-visible");
+      }
+    }
+  }, { threshold: 0.18 });
+
+  for (let i = 0; i < revealItems.length; i++) {
+    revealObserver.observe(revealItems[i]);
+  }
+} else {
+  for (let i = 0; i < revealItems.length; i++) {
+    revealItems[i].classList.add("reveal-visible");
+  }
 }
 
 // logitrack slider
