@@ -29,6 +29,7 @@ import profileImage from "../assets/images/profile.png";
 import ragImage from "../assets/images/RAG.png";
 import telegramImage from "../assets/images/telegram.png";
 import logitrackOne from "../assets/images/logitrack 1.png";
+import visaGuyAdPoster from "../assets/images/video-posters/visa guy ad.mp4.png";
 
 const reelProjects = [
   { title: "Edapt Reel", category: "AI brand edit", video: edaptVideo },
@@ -42,7 +43,12 @@ const reelProjects = [
   { title: "Baljore Reel 2", category: "Product reel", video: baljoreVideo },
   { title: "Baljoure Reel", category: "Product reel", video: baljoureVideo },
   { title: "Canton Fair", category: "Event coverage", video: cantonFairVideo },
-  { title: "Visa Guy Ad", category: "Ad creative", video: visaGuyAdVideo },
+  {
+    title: "Visa Guy Ad",
+    category: "Ad creative",
+    video: visaGuyAdVideo,
+    poster: visaGuyAdPoster,
+  },
 ];
 
 const automationProjects = [
@@ -251,6 +257,7 @@ export default function App() {
                           videoRefs.current[project.title] = node;
                         }}
                         src={project.video}
+                        poster={project.poster}
                         controls
                         muted
                         playsInline
