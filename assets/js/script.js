@@ -67,17 +67,30 @@ const selectValue = document.querySelector("[data-selecct-value]");
 const filterBtn = document.querySelectorAll("[data-filter-btn]");
 
 if (select) {
-  select.addEventListener("click", function () { elementToggleFunc(this); });
+  select.addEventListener("click", function (event) {
+    event.stopPropagation();
+    elementToggleFunc(this);
+  });
 }
+
+const setActiveFilterButton = function (selectedValue) {
+  for (let i = 0; i < filterBtn.length; i++) {
+    const isActive = filterBtn[i].innerText.toLowerCase() === selectedValue;
+    filterBtn[i].classList.toggle("active", isActive);
+  }
+};
 
 // add event in all select items
 for (let i = 0; i < selectItems.length; i++) {
-  selectItems[i].addEventListener("click", function () {
+  selectItems[i].addEventListener("click", function (event) {
+    event.preventDefault();
+    event.stopPropagation();
 
     let selectedValue = this.innerText.toLowerCase();
     if (selectValue) selectValue.innerText = this.innerText;
-    if (select) elementToggleFunc(select);
+    if (select) select.classList.remove("active");
     filterFunc(selectedValue);
+    setActiveFilterButton(selectedValue);
 
   });
 }
@@ -126,6 +139,7 @@ for (let i = 0; i < filterBtn.length; i++) {
     let selectedValue = this.innerText.toLowerCase();
     if (selectValue) selectValue.innerText = this.innerText;
     filterFunc(selectedValue);
+    if (select) select.classList.remove("active");
 
     if (lastClickedBtn) lastClickedBtn.classList.remove("active");
     this.classList.add("active");
@@ -134,6 +148,12 @@ for (let i = 0; i < filterBtn.length; i++) {
   });
 
 }
+
+document.addEventListener("click", function (event) {
+  if (!select) return;
+  if (!select.parentElement || select.parentElement.contains(event.target)) return;
+  select.classList.remove("active");
+});
 
 
 
