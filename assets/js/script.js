@@ -65,6 +65,11 @@ const select = document.querySelector("[data-select]");
 const selectItems = document.querySelectorAll("[data-select-item]");
 const selectValue = document.querySelector("[data-selecct-value]");
 const filterBtn = document.querySelectorAll("[data-filter-btn]");
+const getFilterValue = function (element) {
+  return (element.dataset.filterValue || element.textContent || "")
+    .trim()
+    .toLowerCase();
+};
 
 if (select) {
   select.addEventListener("click", function (event) {
@@ -75,7 +80,7 @@ if (select) {
 
 const setActiveFilterButton = function (selectedValue) {
   for (let i = 0; i < filterBtn.length; i++) {
-    const isActive = filterBtn[i].innerText.toLowerCase() === selectedValue;
+    const isActive = getFilterValue(filterBtn[i]) === selectedValue;
     filterBtn[i].classList.toggle("active", isActive);
   }
 };
@@ -86,8 +91,8 @@ for (let i = 0; i < selectItems.length; i++) {
     event.preventDefault();
     event.stopPropagation();
 
-    let selectedValue = this.innerText.toLowerCase();
-    if (selectValue) selectValue.innerText = this.innerText;
+    let selectedValue = getFilterValue(this);
+    if (selectValue) selectValue.innerText = this.textContent.trim();
     if (select) select.classList.remove("active");
     filterFunc(selectedValue);
     setActiveFilterButton(selectedValue);
@@ -136,8 +141,8 @@ for (let i = 0; i < filterBtn.length; i++) {
 
   filterBtn[i].addEventListener("click", function () {
 
-    let selectedValue = this.innerText.toLowerCase();
-    if (selectValue) selectValue.innerText = this.innerText;
+    let selectedValue = getFilterValue(this);
+    if (selectValue) selectValue.innerText = this.textContent.trim();
     filterFunc(selectedValue);
     if (select) select.classList.remove("active");
 
