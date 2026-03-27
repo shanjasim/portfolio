@@ -4,3 +4,4 @@ website-demo-image/Thumbs.db
 node_modules/
 dist/
 *.tsbuildinfo
+tmp/

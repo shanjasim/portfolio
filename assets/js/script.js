@@ -216,6 +216,23 @@ for (let i = 0; i < navigationLinks.length; i++) {
 for (let i = 0; i < portfolioVideos.length; i++) {
   const currentVideo = portfolioVideos[i];
   const currentCard = currentVideo.closest(".project-item");
+  const warmupVideo = function () {
+    if (currentVideo.dataset.warmed === "true") return;
+    currentVideo.dataset.warmed = "true";
+    currentVideo.preload = "auto";
+
+    if (currentVideo.readyState < 2) {
+      currentVideo.load();
+    }
+  };
+
+  currentVideo.preload = "metadata";
+  currentVideo.setAttribute("playsinline", "");
+  currentVideo.setAttribute("webkit-playsinline", "");
+
+  currentVideo.addEventListener("pointerdown", warmupVideo, { passive: true });
+  currentVideo.addEventListener("touchstart", warmupVideo, { passive: true });
+  currentVideo.addEventListener("mouseenter", warmupVideo, { passive: true });
 
   currentVideo.addEventListener("play", function () {
     for (let j = 0; j < portfolioVideos.length; j++) {
@@ -229,6 +246,7 @@ for (let i = 0; i < portfolioVideos.length; i++) {
     }
 
     if (currentCard) currentCard.classList.add("is-playing");
+    if (currentCard) currentCard.classList.remove("is-buffering", "has-video-error");
   });
 
   currentVideo.addEventListener("pause", function () {
@@ -238,6 +256,62 @@ for (let i = 0; i < portfolioVideos.length; i++) {
   currentVideo.addEventListener("ended", function () {
     if (currentCard) currentCard.classList.remove("is-playing");
   });
+
+  currentVideo.addEventListener("waiting", function () {
+    if (currentCard) currentCard.classList.add("is-buffering");
+  });
+
+  currentVideo.addEventListener("stalled", function () {
+    if (currentCard) currentCard.classList.add("is-buffering");
+  });
+
+  currentVideo.addEventListener("canplay", function () {
+    if (currentCard) currentCard.classList.remove("is-buffering");
+  });
+
+  currentVideo.addEventListener("playing", function () {
+    if (currentCard) currentCard.classList.remove("is-buffering");
+  });
+
+  currentVideo.addEventListener("loadeddata", function () {
+    if (currentCard) currentCard.classList.remove("is-buffering", "has-video-error");
+  });
+
+  currentVideo.addEventListener("error", function () {
+    if (!currentCard) return;
+    currentCard.classList.remove("is-buffering");
+    currentCard.classList.add("has-video-error");
+
+    const retries = Number(currentVideo.dataset.retryCount || "0");
+    if (retries >= 1) return;
+
+    currentVideo.dataset.retryCount = String(retries + 1);
+    window.setTimeout(function () {
+      currentCard.classList.add("is-buffering");
+      currentVideo.load();
+    }, 250);
+  });
+}
+
+if ("IntersectionObserver" in window) {
+  const preloadObserver = new IntersectionObserver(function (entries, observer) {
+    for (let i = 0; i < entries.length; i++) {
+      const entry = entries[i];
+      if (!entry.isIntersecting) continue;
+
+      const video = entry.target;
+      if (video instanceof HTMLVideoElement) {
+        video.preload = "auto";
+        if (video.readyState < 2) video.load();
+      }
+
+      observer.unobserve(entry.target);
+    }
+  }, { rootMargin: "260px 0px", threshold: 0.01 });
+
+  for (let i = 0; i < portfolioVideos.length; i++) {
+    preloadObserver.observe(portfolioVideos[i]);
+  }
 }
 
 // logitrack slider
