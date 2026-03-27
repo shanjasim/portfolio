@@ -12,28 +12,28 @@ import {
 
 import { Badge } from "@/components/ui/badge";
 
-import edaptVideo from "../assets/Videos/edapt 1.mp4";
-import umerVideo from "../assets/Videos/Umer abdussalam 1.mp4";
-import phlemVideo from "../assets/Videos/phlem wellness.mp4";
+import edaptVideo from "../assets/Videos/edapt-1.mp4";
+import umerVideo from "../assets/Videos/umer-abdussalam-1.mp4";
+import phlemVideo from "../assets/Videos/phlem-wellness.mp4";
 import ameerVideo from "../assets/Videos/ameer.mp4";
 import markazVideo from "../assets/Videos/Markaz.mp4";
 import najiyaVideo from "../assets/Videos/Najiya.mp4";
 import shwenaVideo from "../assets/Videos/shwena.mp4";
-import zackVideo from "../assets/Videos/Zackariya zack.mp4";
-import baljoreVideo from "../assets/Videos/Baljore reel 2.mp4";
-import baljoureVideo from "../assets/Videos/Baljoure reel.mp4";
-import cantonFairVideo from "../assets/Videos/Canton Fair Abdussalam .mp4";
-import visaGuyAdVideo from "../assets/Videos/visa guy ad.mp4";
-import aloghVideo from "../assets/Videos/alogh 1.mp4";
-import aloghTwoVideo from "../assets/Videos/alogh 2.mp4";
+import zackVideo from "../assets/Videos/zackariya-zack.mp4";
+import baljoreVideo from "../assets/Videos/baljore-reel-2.mp4";
+import baljoureVideo from "../assets/Videos/baljoure-reel.mp4";
+import cantonFairVideo from "../assets/Videos/canton-fair-abdussalam.mp4";
+import visaGuyAdVideo from "../assets/Videos/visa-guy-ad.mp4";
+import aloghVideo from "../assets/Videos/alogh-1.mp4";
+import aloghTwoVideo from "../assets/Videos/alogh-2.mp4";
 
 import profileImage from "../assets/images/profile.png";
 import ragImage from "../assets/images/RAG.png";
 import telegramImage from "../assets/images/telegram.png";
 import logitrackOne from "../assets/images/logitrack 1.png";
-import visaGuyAdPoster from "../assets/images/video-posters/visa guy ad.mp4.png";
-import aloghPoster from "../assets/images/video-posters/alogh 1.mp4.png";
-import aloghTwoPoster from "../assets/images/video-posters/alogh 2.mp4.png";
+import visaGuyAdPoster from "../assets/images/video-posters/visa-guy-ad.png";
+import aloghPoster from "../assets/images/video-posters/alogh-1.png";
+import aloghTwoPoster from "../assets/images/video-posters/alogh-2.png";
 
 const reelProjects = [
   { title: "Edapt Reel", category: "AI brand edit", video: edaptVideo },
