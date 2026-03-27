@@ -24,12 +24,16 @@ import baljoreVideo from "../assets/Videos/Baljore reel 2.mp4";
 import baljoureVideo from "../assets/Videos/Baljoure reel.mp4";
 import cantonFairVideo from "../assets/Videos/Canton Fair Abdussalam .mp4";
 import visaGuyAdVideo from "../assets/Videos/visa guy ad.mp4";
+import aloghVideo from "../assets/Videos/alogh 1.mp4";
+import aloghTwoVideo from "../assets/Videos/alogh 2.mp4";
 
 import profileImage from "../assets/images/profile.png";
 import ragImage from "../assets/images/RAG.png";
 import telegramImage from "../assets/images/telegram.png";
 import logitrackOne from "../assets/images/logitrack 1.png";
 import visaGuyAdPoster from "../assets/images/video-posters/visa guy ad.mp4.png";
+import aloghPoster from "../assets/images/video-posters/alogh 1.mp4.png";
+import aloghTwoPoster from "../assets/images/video-posters/alogh 2.mp4.png";
 
 const reelProjects = [
   { title: "Edapt Reel", category: "AI brand edit", video: edaptVideo },
@@ -48,6 +52,18 @@ const reelProjects = [
     category: "Ad creative",
     video: visaGuyAdVideo,
     poster: visaGuyAdPoster,
+  },
+  {
+    title: "Alogh 1",
+    category: "Social reel",
+    video: aloghVideo,
+    poster: aloghPoster,
+  },
+  {
+    title: "Alogh 2",
+    category: "Social reel",
+    video: aloghTwoVideo,
+    poster: aloghTwoPoster,
   },
 ];
 
